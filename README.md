@@ -1,2 +1,2 @@
 # JSA4JS
-JSAppSugar实现的JavaScript模块
+The JavaScript Module for the implementation  of JSAppSugar
