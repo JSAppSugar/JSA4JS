@@ -75,7 +75,7 @@ QUnit.test( "Basic Object-Oriented Syntax Test", function( assert ) {
 	{
 		let bObj = new test.BClass('a');
 		assert.equal(bObj.a,"a",'bObj.a,"a" OK!');
-		assert.ok(bObj instanceof JSA.Object
+		assert.ok(bObj instanceof jsa.Object
 			&& bObj instanceof test.AClass
 			&& bObj instanceof test.BClass
 			,"Super Class Test OK！");

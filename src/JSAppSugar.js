@@ -1,11 +1,12 @@
 
 var JSA = JSA || {};
+var jsa = jsa || {};
 JSA.$global = this;
 
 (function(){
 	"use strict";
 
-	JSA.Object = function(){};
+	jsa.Object = function(){};
 
 	var initializing = false;
 
@@ -61,7 +62,7 @@ JSA.$global = this;
 				f_$constructor.apply(this,arguments);
 			}
 
-			var SuperClass = JSA.Object;
+			var SuperClass = jsa.Object;
 			if(define.$extends){
 				if(typeof define.$extends !== 'string'){
 					throw new Error("[$class] Invalid $extends class name '" + define.$extends + "' specified, must be a non-empty string");
