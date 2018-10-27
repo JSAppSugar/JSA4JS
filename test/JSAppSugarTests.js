@@ -99,3 +99,19 @@ QUnit.test( "Basic Object-Oriented Syntax Test", function( assert ) {
 		assert.equal(dObj.f2(),'1a2a2c2d','dObj.f2() OK！');
 	}
 });
+
+QUnit.test( "Reflect Functions Test", function( assert ) {
+	$class("reflect.AClass",{
+		$init:function(a){
+			if(a){
+				this.a = a;
+			}
+		},
+		a:"-",
+	});
+	{
+		let aObj = $newClass("reflect.AClass",["a"]);
+		assert.equal(aObj.a,'a','aObj.a="a" OK！');
+	}
+});
+
