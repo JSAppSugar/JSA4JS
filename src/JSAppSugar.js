@@ -122,7 +122,6 @@ JSA.$global = this;
 		var cls = f_findClass(className);
 		var o = undefined;
 		if(cls){
-			o = new cls();
 			o = new cls({"$arguments":args});
 		}
 		return o;
