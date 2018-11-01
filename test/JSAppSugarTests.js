@@ -102,16 +102,16 @@ QUnit.test( "Basic Object-Oriented Syntax Test", function( assert ) {
 
 QUnit.test( "Reflect Functions Test", function( assert ) {
 	$class("reflect.AClass",{
-		$init:function(a){
-			if(a){
-				this.a = a;
+		$init:function(a,b){
+			if(a && b){
+				this.a = a+b;
 			}
 		},
 		a:"-",
 	});
 	{
-		let aObj = $newClass("reflect.AClass",["a"]);
-		assert.equal(aObj.a,'a','aObj.a="a" OK！');
+		let aObj = $newClass("reflect.AClass",["a","b"]);
+		assert.equal(aObj.a,'ab','aObj.a="ab" OK！');
 	}
 });
 
