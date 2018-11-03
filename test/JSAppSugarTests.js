@@ -108,10 +108,18 @@ QUnit.test( "Reflect Functions Test", function( assert ) {
 			}
 		},
 		a:"-",
+		$static:{
+			A:"a",
+			func:function(a){
+				return this.A+a;
+			}
+		}
 	});
 	{
 		let aObj = $newClass("reflect.AClass",["a","b"]);
 		assert.equal(aObj.a,'ab','aObj.a="ab" OK！');
+		assert.equal(reflect.AClass.func("a"),'aa','reflect.AClass.func="aa" OK！');
+		assert.equal($classFunction("reflect.AClass","func",["a"]),'aa','$classFunction="aa" OK！');
 	}
 });
 
