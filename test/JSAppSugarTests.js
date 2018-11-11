@@ -24,7 +24,7 @@ QUnit.test( "Basic Object-Oriented Syntax Test", function( assert ) {
 	$class("test.BClass",{
 		$extends:'test.AClass',
 		$init:function(a,b){
-			this.$super('$init')(a);
+			$super(a);
 			if(b){
 				this.b = b;
 			}
@@ -34,29 +34,29 @@ QUnit.test( "Basic Object-Oriented Syntax Test", function( assert ) {
 	$class("test.CClass",{
 		$extends:'test.BClass',
 		$init:function(a,b,c){
-			this.$super('$init')(a,b);
+			$super(a,b);
 			if(c){
 				this.c = c;
 			}
 		},
 		c:'-',
 		f1:function(){
-			let s = this.$super('f1')();
+			let s = $super.f1();
 			return s+"1c";
 		},
 		f2:function(){
-			let s1 = this.$super('f1')();
-			let s2 = this.$super('f2')();
+			let s1 = $super.f1();
+			let s2 = $super.f2();
 			return s1+s2+"2c";
 		},
 	});
 	$class("test.DClass",{
 		$extends:'test.CClass',
 		$init:function(a,b,c){
-			this.$super('$init')(a,b,c);
+			$super(a,b,c);
 		},
 		f2:function(){
-			let s = this.$super('f2')();
+			let s = $super.f2();
 			return s+"2d";
 		}
 	});
