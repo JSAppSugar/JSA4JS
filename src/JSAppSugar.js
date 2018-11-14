@@ -185,7 +185,18 @@ JSA.$global = this;
 			return cls[methodName].apply(cls,args);
 		}
 		return null;
-	}
+	};
+	JSA.$class("jsa.NativeObject",{
+		$init : function(self){
+			this.$this = self;
+		},
+		invoke : engine.invoke,
+		$static : {
+			fromNative : function(self){
+				return new jsa.NativeObject(self);
+			}
+		}
+	});
 }($engine));
 
 $class = JSA.$class;
