@@ -36,6 +36,7 @@ JSA.$global = this;
 	"use strict";
 
 	jsa.Object = function(){};
+	JSA["$"+engine.lang] = true;
 
 	jsa.Object.prototype.weakObject = engine.weakObject;
 	jsa.Object.prototype.isWeak = engine.isWeak;
