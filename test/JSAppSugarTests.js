@@ -123,3 +123,21 @@ QUnit.test( "Reflect Functions Test", function( assert ) {
 	}
 });
 
+QUnit.test( "KVO Functions Test", function( assert ) {
+	$class("kvo.AClass",{
+		a:"-"
+	});
+	{
+		let aObj = new kvo.AClass();
+		var o="";
+		var n="";
+		aObj.watch("a",function(prop, oldValue, newValue){
+			o = oldValue;
+			n = newValue;
+		});
+		aObj.a = "1";
+		assert.equal(o,'-','o=="-" OK！');
+		assert.equal(n,'1','n=="1" OK！');
+	}
+});
+
