@@ -221,6 +221,10 @@ JSA.$global = this;
 	JSA.$import = engine.$import;
 	JSA.$classFunction = function(className,methodName,args){
 		var cls = f_findClass(className);
+		if(!cls){
+			JSA.$import(className);
+			cls = f_findClass(className);
+		}
 		if(cls && cls[methodName]){
 			return cls[methodName].apply(cls,args);
 		}
