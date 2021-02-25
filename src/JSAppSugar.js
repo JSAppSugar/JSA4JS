@@ -210,7 +210,7 @@ JSA.$global = this;
 			f_applyClass(className,JSAClass);
 		}
 	};
-	JSA.$newClass = function(className,args){
+	JSA.$new = function(className,args){
 		var cls = f_findClass(className);
 		var o = undefined;
 		if(cls){
@@ -245,6 +245,6 @@ JSA.$global = this;
 
 $class = JSA.$class;
 $import = JSA.$import;
-$newClass = JSA.$newClass;
+$new = JSA.$new;
 $classFunction = JSA.$classFunction;
 delete $engine;
