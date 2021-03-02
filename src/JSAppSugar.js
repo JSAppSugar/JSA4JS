@@ -212,6 +212,10 @@ JSA.$global = this;
 	};
 	JSA.$new = function(className,args){
 		var cls = f_findClass(className);
+		if(!cls){
+			JSA.$import(className);
+			cls = f_findClass(className);
+		}
 		var o = undefined;
 		if(cls){
 			o = new cls({"$arguments":args});
