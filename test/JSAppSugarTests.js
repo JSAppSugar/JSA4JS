@@ -116,7 +116,7 @@ QUnit.test( "Reflect Functions Test", function( assert ) {
 		}
 	});
 	{
-		let aObj = $newClass("reflect.AClass",["a","b"]);
+		let aObj = $new("reflect.AClass",["a","b"]);
 		assert.equal(aObj.a,'ab','aObj.a="ab" OK！');
 		assert.equal(reflect.AClass.func("a"),'aa','reflect.AClass.func="aa" OK！');
 		assert.equal($classFunction("reflect.AClass","func",["a"]),'aa','$classFunction="aa" OK！');
