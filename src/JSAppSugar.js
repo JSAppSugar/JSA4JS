@@ -124,6 +124,11 @@ JSA.$global = this;
 		currentPackage[packages[l]] = newClass;
 	};
 
+	JSA.$interface = function(className,define){
+		define["$interface"] = true;
+		JSA.$class(className,define);
+	}
+
 	JSA.$class = function(className,define){
 		if (className != null && typeof className !== 'string') {
 			throw new Error("[$class] Invalid class name '" + className + "' specified, must be a non-empty string");
@@ -153,9 +158,18 @@ JSA.$global = this;
 			JSAClass.prototype.$super = f_$super;
 
 			var SuperClassProto = SuperClass.prototype;
-			if(define["$implementation"]){
-				JSAClass.$impl = define["$implementation"]['$'+engine.lang];
-				JSAClass.prototype.$init = engine.$init(define["$init"]?define["$init"]['$'+engine.lang]:undefined);
+			var isInterface = false;
+			if(define["$interface"]){
+				isInterface = true;
+			}
+			if(define["$implementation"] || isInterface){
+				if(isInterface){
+					JSAClass.$impl = "$interface";
+					JSAClass.prototype.$init = engine.$init(undefined);
+				}else{
+					JSAClass.$impl = define["$implementation"]['$'+engine.lang];
+					JSAClass.prototype.$init = engine.$init(define["$init"]?define["$init"]['$'+engine.lang]:undefined);
+				}
 				for(var key in define){
 					if(key.charAt(0)==='$') continue;
 					if(define[key]["$setView"]){
@@ -168,7 +182,7 @@ JSA.$global = this;
 				JSAClass.fromNative = function(obj){
 					return new JSAClass({"$native":obj});
 				}
-				if(define.$static){
+				if(!isInterface && define.$static){
 					var staticDefine = define.$static;
 					for(var key in staticDefine){
 						if(key.charAt(0)=== '$'){
@@ -210,7 +224,7 @@ JSA.$global = this;
 			f_applyClass(className,JSAClass);
 		}
 	};
-	JSA.$new = function(className,args){
+	JSA.$newJs = function(className,args){
 		var cls = f_findClass(className);
 		if(!cls){
 			JSA.$import(className);
@@ -223,6 +237,13 @@ JSA.$global = this;
 		return o;
 	};
 	JSA.$import = engine.$import;
+	JSA.$classStaticVariable = function(className,variable){
+		var cls = f_findClass(className);
+		if(cls && cls[variable]){
+			return cls[variable];
+		}
+		return null;
+	};
 	JSA.$classFunction = function(className,methodName,args){
 		var cls = f_findClass(className);
 		if(!cls){
@@ -248,7 +269,9 @@ JSA.$global = this;
 }($engine));
 
 $class = JSA.$class;
+$interface = JSA.$interface;
 $import = JSA.$import;
-$new = JSA.$new;
+$newJs = JSA.$newJs;
 $classFunction = JSA.$classFunction;
+$classStaticVariable = JSA.$classStaticVariable;
 delete $engine;
