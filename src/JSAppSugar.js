@@ -239,6 +239,10 @@ JSA.$global = this;
 	JSA.$import = engine.$import;
 	JSA.$classStaticVariable = function(className,variable){
 		var cls = f_findClass(className);
+		if(!cls){
+			JSA.$import(className);
+			cls = f_findClass(className);
+		}
 		if(cls && cls[variable]){
 			return cls[variable];
 		}
