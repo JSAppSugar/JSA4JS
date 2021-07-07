@@ -20,6 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+/*
+V1.0.0.1
+*/
+
 var JSA = JSA || {};
 var jsa = jsa || {};
 var $engine = $engine || {
@@ -34,6 +38,16 @@ JSA.$global = this;
 
 (function(engine){
 	"use strict";
+
+	var reservedPrototype = {
+		"constructor" : 1,
+		"$super" : 1,
+		"weakObject" : 1,
+		"isWeak" : 1,
+		"self" : 1,
+		"watch" : 1,
+		"unwatch" :1
+	}
 
 	jsa.Object = function(){};
 	JSA["$"+engine.lang] = true;
@@ -217,6 +231,16 @@ JSA.$global = this;
 					var defineStatic = define.$static;
 					for(var key in defineStatic){
 						JSAClass[key] = defineStatic[key];
+					}
+				}
+				if(define.$feature){
+					for(var fi in define.$feature){
+						var featureClz = f_findClass(define.$feature[fi]);
+						for(var fk in featureClz.prototype){
+							if(!reservedPrototype[fk] && !JSAClass.prototype[fk]){
+								JSAClass.prototype[fk] = featureClz.prototype[fk];
+							}
+						}
 					}
 				}
 			}

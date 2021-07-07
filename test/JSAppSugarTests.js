@@ -141,3 +141,39 @@ QUnit.test( "KVO Functions Test", function( assert ) {
 	}
 });
 
+/*
+Feature 是一种多重继承机制，允许一个类继承多个Feature类的功能。如果Feature类中存在同名函数，则会被忽略
+*/
+QUnit.test( "Feature Syntax Test", function( assert ) {
+	$class("feature.AClass",{
+		a:"a",
+		fa:function(){
+			return this.a;
+		}
+	});
+
+	$class("feature.CFeature",{
+		c:"c",
+		fc:function(){
+			return this.c;
+		},
+		fb : function() {
+			return "fb";
+		}
+	});
+
+	$class("feature.BClass",{
+		$extends:'feature.AClass',
+		$feature:["feature.CFeature"],
+		b:'b',
+		fb:function(){
+			return this.b;
+		}
+	});
+
+	var a = new feature.AClass();
+	var b = new feature.BClass();
+	assert.equal(a.fa(),'a','call funcA OK!');
+	assert.equal(b.fb(),'b','call funcB OK!');
+	assert.equal(b.fc(),'c','call funcC OK!');
+});
